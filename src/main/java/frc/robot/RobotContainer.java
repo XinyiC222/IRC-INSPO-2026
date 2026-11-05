@@ -4,8 +4,7 @@
 
 package frc.robot;
 
-import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.Commands;
+import org.team4159.commandsv3backport.command3.Command;
 
 public class RobotContainer {
   public RobotContainer() {
@@ -15,6 +14,7 @@ public class RobotContainer {
   private void configureBindings() {}
 
   public Command getAutonomousCommand() {
-    return Commands.print("No autonomous command configured");
+    return Command.noRequirements(coroutine -> System.out.println("No autonomous command configured"))
+      .named("Autonomous Command");
   }
 }
