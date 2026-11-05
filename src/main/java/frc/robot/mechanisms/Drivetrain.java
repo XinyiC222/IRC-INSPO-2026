@@ -14,6 +14,6 @@ public class Drivetrain implements Mechanism {
     private final SparkMaxConfig rightMotorConfig - new SparkMaxConfig();
 
     public Drivetrain() {
-        
+            
     }
 }
