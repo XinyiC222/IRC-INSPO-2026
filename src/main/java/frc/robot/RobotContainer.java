@@ -5,9 +5,18 @@
 package frc.robot;
 
 import org.team4159.commandsv3backport.command3.Command;
+import org.team4159.commandsv3backport.command3.button.CommandNiDsXboxController;
+
+import frc.robot.mechanisms.Drivetrain;
 
 public class RobotContainer {
+  private final Drivetrain drivetrain = new Drivetrain();
+  private final CommandNiDsXboxController controller = new CommandNiDsXboxController(0);
+  private final Command driveCommand = drivetrain.driveCommand(controller);
+
   public RobotContainer() {
+    drivetrain.setDefaultCommand(driveCommand);
+    
     configureBindings();
   }
 
