@@ -11,8 +11,8 @@ public class Drivetrain implements Mechanism {
     private final VictorSP rightMotor;
 
     public Drivetrain() {
-            leftMotor = new VictorSP(1);
-            rightMotor = new VictorSP(2);
+            leftMotor = new VictorSP(1); //set left channel
+            rightMotor = new VictorSP(2); //set right channel
 
             leftMotor.setInverted(true);
             
@@ -34,5 +34,10 @@ public class Drivetrain implements Mechanism {
         })
         .whenExited(this::stop)
         .named("Drive");
+    }
+    public Command autoDriveCommand (double leftSpeed, double rightSpeed) {
+        return runRepeatedly(() -> drive(leftSpeed, rightSpeed))
+            .whenExited(this::stop)
+            .named("Auto Drive");
     }
 }

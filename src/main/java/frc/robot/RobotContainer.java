@@ -4,26 +4,35 @@
 
 package frc.robot;
 
+import frc.robot.commands.BasicAuto;
 import org.team4159.commandsv3backport.command3.Command;
+import org.team4159.commandsv3backport.command3.Trigger;
 import org.team4159.commandsv3backport.command3.button.CommandNiDsXboxController;
 
+import frc.robot.mechanisms.Arm;
 import frc.robot.mechanisms.Drivetrain;
+
 
 public class RobotContainer {
   private final Drivetrain drivetrain = new Drivetrain();
   private final CommandNiDsXboxController controller = new CommandNiDsXboxController(0);
   private final Command driveCommand = drivetrain.driveCommand(controller);
+  private final Arm arm = new Arm();
+  private final Trigger armButtonUp = controller.rightTrigger();
+  private final Trigger armButtonDown = controller.leftTrigger();
 
   public RobotContainer() {
     drivetrain.setDefaultCommand(driveCommand);
-    
+  
     configureBindings();
   }
 
-  private void configureBindings() {}
+  private void configureBindings() {
+    armButtonUp.whileTrue(arm.liftCommand(0.1));//arm speed
+    armButtonDown.whileTrue(arm.liftCommand(-0.1));//arm speed
+  }
 
   public Command getAutonomousCommand() {
-    return Command.noRequirements(coroutine -> System.out.println("No autonomous command configured"))
-      .named("Autonomous Command");
+    return new BasicAuto(drivetrain, arm).command();
   }
 }
